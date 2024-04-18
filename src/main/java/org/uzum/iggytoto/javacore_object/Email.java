@@ -1,16 +1,11 @@
 package org.uzum.iggytoto.javacore_object;
 
-public class Email {
+public class Email implements Cloneable {
     private String value;
 
     public Email(String value) {
         this.value = value;
     }
-
-    public Email(){
-
-    }
-
 
     public String getValue() {
         return value;
@@ -18,5 +13,16 @@ public class Email {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
+
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

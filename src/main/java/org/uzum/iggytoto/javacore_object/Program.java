@@ -3,26 +3,14 @@ package org.uzum.iggytoto.javacore_object;
 public class Program {
 
     public static void main(String[] args) throws CloneNotSupportedException {
-        Person person1 = new Person();
-        person1.setEmail(new Email("test@test.test"));
-        person1.setName("Jora");
+        Person person = new Person();
+        person.setEmail(new Email("person@outlook.com"));
+        person.setName("PersonA");
 
-        Person person2 = new Person();
-        person2.setName("Suzan");
-        person2.setEmail(new Email("suzan@test.test"));
+        Person person_clone = (Person) person.clone();
+        person_clone.getEmail().setValue("person_clone@mail.ru");
 
-        Person person3 = new Person();
-        person3.setName(person1.getName());
-        person3.setEmail(person1.getEmail());
-
-        Person person1Clone = (Person) person1.clone();
-
-        System.out.println(person1);
-        System.out.println(person2);
-
-        System.out.println(person1.equals(person2));
-        System.out.println(person1.equals(null));
-        System.out.println(person1.equals(person3));
-        System.out.println(person1.equals(person1Clone));
+        System.out.println(person);
+        System.out.println(person_clone);
     }
 }

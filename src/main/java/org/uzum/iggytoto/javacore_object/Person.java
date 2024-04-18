@@ -2,7 +2,7 @@ package org.uzum.iggytoto.javacore_object;
 
 import java.util.Objects;
 
-public class Person implements Cloneable{
+public class Person implements Cloneable {
     private String name;
     private Email email;
 
@@ -23,28 +23,19 @@ public class Person implements Cloneable{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(name, person.name) && Objects.equals(email, person.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, email);
-    }
-
-    @Override
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
-                ", email=" + email +
+                ", email=" + email.toString() +
                 '}';
     }
 
+
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        Person clonedPerson = (Person) super.clone();
+        clonedPerson.email = (Email) email.clone();
+        return clonedPerson;
     }
+
 }
