@@ -1,6 +1,5 @@
 package org.uzum.iggytoto.javacore_object;
 
-import java.util.Objects;
 
 public class Person implements Cloneable {
     private String name;
