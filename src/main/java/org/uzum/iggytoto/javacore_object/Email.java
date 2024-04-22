@@ -17,7 +17,7 @@ public class Email implements Cloneable {
 
     @Override
     public String toString() {
-        return this.value;
+        return value;
     }
 
 
