@@ -3,6 +3,8 @@ package org.uzum.iggytoto.javacore_synchronization;
 import java.util.concurrent.CyclicBarrier;
 
 public class Ferry {
+//    Когда все потоки достигают барьера (в данном случае, после достижения трех потоков), будет выполнен конструктор
+//    FerryBoat(), переданный в качестве аргумента при создании CyclicBarrier
     private static final CyclicBarrier BARRIER = new CyclicBarrier(3, new FerryBoat());
     //Инициализируем барьер на три потока и таском, который будет выполняться, когда
     //у барьера соберется три потока. После этого, они будут освобождены.
