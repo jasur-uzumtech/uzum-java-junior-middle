@@ -18,6 +18,8 @@ public class Bus {
                 passengers.add(new Passenger(i, 5));    //Этот пассажир выходит на конечной
         }
 
+//        i=0 and i=6 for start and end point of the bus
+//        i=[1,5] for 4 passengers
         for (int i = 0; i < 7; i++) {
             switch (i) {
                 case 0:
