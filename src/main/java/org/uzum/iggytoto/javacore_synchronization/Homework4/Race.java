@@ -1,36 +1,67 @@
 package org.uzum.iggytoto.javacore_synchronization.Homework4;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Phaser;
 
 public class Race {
-    private static final Phaser PHASER = new Phaser(1); // Инициализируем Phaser с фазой 1 (главной фазой)
+    private static final Phaser START_LINE_PHASER = new Phaser(1);
+    private static final Phaser PHASER = new Phaser();
 
-    private static final int THREAD_COUNT = 3; // Количество участников гонки
+    public static void main(String[] args) {
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car(1, 100)); // Автомобиль №1, скорость 100
+        cars.add(new Car(2, 80));  // Автомобиль №2, скорость 80
+        cars.add(new Car(3, 120)); // Автомобиль №3, скорость 120
+        cars.add(new Car(4, 90));  // Автомобиль №4, скорость 90
+        cars.add(new Car(5, 110)); // Автомобиль №5, скорость 110
 
-    public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < THREAD_COUNT; i++) {
-            new Thread(new Car(i)).start(); // Запускаем участников гонки
+        for (Car car : cars) {
+            car.start();
         }
 
-        System.out.println("Ready to start the race!");
-        PHASER.arrive(); // Уведомляем, что главная фаза завершена
-        PHASER.awaitAdvance(0); // Ожидаем, пока все участники фазы завершатся
-        System.out.println("Race is over!");
+        START_LINE_PHASER.arriveAndAwaitAdvance(); // Ждем, пока все подъедут к стартовой прямой
+        System.out.println("На старт!");
+        System.out.println("Внимание!");
+        System.out.println("Марш!");
+
+        // Ожидаем завершения гонки всех машин
+        PHASER.register(); // Регистрируем главный поток
+        PHASER.arriveAndAwaitAdvance(); // Ждем, пока все машины финишируют
+        PHASER.arriveAndDeregister(); // Снимаем регистрацию главного потока
     }
 
-    public static class Car implements Runnable {
-        private final int carNumber;
+    static class Car extends Thread {
+        private int carNumber;
+        private int carSpeed;
 
-        public Car(int carNumber) {
+        public Car(int carNumber, int carSpeed) {
             this.carNumber = carNumber;
+            this.carSpeed = carSpeed;
+        }
+
+        public int getCarNumber() {
+            return carNumber;
+        }
+
+        public int getCarSpeed() {
+            return carSpeed;
         }
 
         @Override
         public void run() {
-            System.out.println("Car #" + carNumber + " is ready");
-            PHASER.arriveAndAwaitAdvance(); // Ожидаем, пока все участники подготовятся к старту
-            System.out.println("Car #" + carNumber + " started the race");
-            PHASER.arriveAndDeregister(); // Уведомляем о завершении фазы и удаляем участника
+            System.out.println("Автомобиль №" + this.getCarNumber() + " подъехал к стартовой прямой.");
+            START_LINE_PHASER.arriveAndAwaitAdvance(); // Ожидаем начала гонки
+
+            // Симуляция гонки
+            try {
+                Thread.sleep(1000 * 100 / this.getCarSpeed());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Автомобиль №" + this.getCarNumber() + " финишировал!");
+            PHASER.arrive(); // Сообщаем о завершении гонки
         }
     }
 }
