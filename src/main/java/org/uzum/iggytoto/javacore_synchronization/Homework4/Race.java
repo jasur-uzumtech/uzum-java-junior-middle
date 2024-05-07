@@ -10,11 +10,11 @@ public class Race {
 
     public static void main(String[] args) {
         List<Car> cars = new ArrayList<>();
-        cars.add(new Car(1, 100)); // Автомобиль №1, скорость 100
-        cars.add(new Car(2, 80));  // Автомобиль №2, скорость 80
-        cars.add(new Car(3, 120)); // Автомобиль №3, скорость 120
-        cars.add(new Car(4, 90));  // Автомобиль №4, скорость 90
-        cars.add(new Car(5, 110)); // Автомобиль №5, скорость 110
+        cars.add(new Car(1, (int) (Math.random() * 100 + 50)));
+        cars.add(new Car(2, (int) (Math.random() * 100 + 50)));
+        cars.add(new Car(3, (int) (Math.random() * 100 + 50)));
+        cars.add(new Car(4, (int) (Math.random() * 100 + 50)));
+        cars.add(new Car(5, (int) (Math.random() * 100 + 50)));
 
         for (Car car : cars) {
             car.start();
