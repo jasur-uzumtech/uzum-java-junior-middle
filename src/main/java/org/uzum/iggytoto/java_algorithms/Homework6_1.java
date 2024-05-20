@@ -1,5 +1,6 @@
 package org.uzum.iggytoto.java_algorithms;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class Homework6_1 {
     // Definition for a Node.
     public static class Node {
         public int val;
-        public List<Node> children;
+        public List<Node> children = new ArrayList<>();
 
         public Node() {
         }
@@ -57,6 +58,13 @@ public class Homework6_1 {
     }
 
     public int maxDepth(Node root) {
-        return -1;
+        if (root == null) {
+            throw new IllegalArgumentException("Root cannot be null");
+        }
+        int maxDepth = 0;
+        for (Node child : root.children) {
+            maxDepth = Math.max(maxDepth, maxDepth(child));
+        }
+        return maxDepth + 1;
     }
 }
